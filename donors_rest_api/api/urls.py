@@ -1,16 +1,20 @@
 from django.urls import path
-from  . import views
-
 from . import views
+from rest_framework.authtoken import views as auth_view
+
 
 urlpatterns = [
+
+    path('login/', auth_view.obtain_auth_token),
+
     path('', views.apiRoot, name='Api-Root'),
 
     path('users/', views.users, name='Users'),
     path('users/<int:pk>', views.users, name='Users'),
+    path('user_create/', views.userCreate, name='Users'),
 
-    path('districs/', views.districts, name='Districts'),
-    path('districs/<int:pk>', views.districts, name='Districts'),
+    path('districts/', views.districts, name='Districts'),
+    path('districts/<int:pk>', views.districts, name='Districts'),
 
     path('cities/', views.cities, name='Cities'),
     path('cities/<int:pk>', views.cities, name='Cities'),

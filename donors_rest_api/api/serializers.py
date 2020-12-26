@@ -107,3 +107,9 @@ class BloodTypeCompatibilitySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class AuthUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AuthUser
+        fields = '__all__'
+
+

@@ -1,6 +1,26 @@
 from django.db import models
 
 
+class AuthUser(models.Model):
+    password = models.CharField(max_length=128)
+    last_login = models.DateTimeField(blank=True, null=True)
+    is_superuser = models.IntegerField()
+    username = models.CharField(unique=True, max_length=150)
+    first_name = models.CharField(max_length=150)
+    last_name = models.CharField(max_length=150)
+    email = models.CharField(max_length=254)
+    is_staff = models.IntegerField()
+    is_active = models.IntegerField()
+    date_joined = models.DateTimeField()
+
+    def __str__(self):
+        return self.username
+
+    class Meta:
+        managed = False
+        db_table = 'auth_user'
+
+
 class BloodTypeCompatibility(models.Model):
     blood_type_compatibility_id = models.AutoField(primary_key=True)
     donor_blood_type = models.OneToOneField('BloodTypes', models.DO_NOTHING, db_column='donor_blood_type')
@@ -8,7 +28,7 @@ class BloodTypeCompatibility(models.Model):
     is_compatible = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
-        return str(self.donor_blood_type)+ " - " + str(self.recv_blood_type)
+        return str(self.donor_blood_type) + " - " + str(self.recv_blood_type)
 
     class Meta:
         managed = False
@@ -63,7 +83,7 @@ class DonationHistory(models.Model):
     verification_user = models.ForeignKey('Users', models.DO_NOTHING, blank=True, null=True, related_name='users')
 
     def __str__(self):
-        return str(self.user)+": "+str(self.donation_date)
+        return str(self.user) + ": " + str(self.donation_date)
 
     class Meta:
         managed = False
@@ -91,7 +111,7 @@ class DonationReg(models.Model):
     last_donation_date = models.DateField(blank=True, null=True)
 
     def __str__(self):
-        return str(self.user) +" - "+ str(self.donation)
+        return str(self.user) + " - " + str(self.donation)
 
     class Meta:
         managed = False
@@ -117,7 +137,7 @@ class DonationsDonationModes(models.Model):
     donation_mode = models.ForeignKey(DonationModes, models.DO_NOTHING)
 
     def __str__(self):
-        return str(self.donation) + " - "+ str(self.donation_mode)
+        return str(self.donation) + " - " + str(self.donation_mode)
 
     class Meta:
         managed = False
@@ -182,8 +202,6 @@ class Priority(models.Model):
         db_table = 'priority'
 
 
-
-
 class Requests(models.Model):
     request_id = models.BigAutoField(primary_key=True)
     request_title = models.CharField(max_length=50, blank=True, null=True)
@@ -215,14 +233,13 @@ class SubscriptionMode(models.Model):
 
 
 class UserEventSubscription(models.Model):
-
     user_event_subscription_id = models.AutoField(primary_key=True)
     user = models.OneToOneField('Users', models.DO_NOTHING)
     event_type = models.ForeignKey(EventType, models.DO_NOTHING)
     subscription_mode = models.ForeignKey(SubscriptionMode, models.DO_NOTHING)
 
     def __str__(self):
-        return str(self.user) +" - "+ str(self.event_type) + str(f"({self.subscription_mode})")
+        return str(self.user) + " - " + str(self.event_type) + str(f"({self.subscription_mode})")
 
     class Meta:
         managed = False

@@ -1,20 +1,46 @@
-
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
+from django.contrib.auth.models import User
 from .serializers import *
 from .models import *
+
+from rest_framework.response import Response
+from rest_framework.authtoken.models import Token
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication, BasicAuthentication
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.permissions import IsAuthenticated
 
 
 @api_view(['GET'])
 def apiRoot(request):
     api_root = {
-        'Status':200
+        'Status': 200
     }
 
     return Response(api_root)
 
 
 # Users
+@api_view(['POST'])
+@permission_classes((IsAuthenticated,))
+@authentication_classes((SessionAuthentication, BasicAuthentication,))
+def userCreate(request):
+
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+
+            username = serializer.data['username']
+            email = serializer.data['email']
+            password = serializer.data['password']
+
+            user = User.objects.create_user(username, email, password)
+            user.save()
+            token = Token.objects.create(user=user)
+
+            return Response(serializer.data)
+        else:
+            return Response('Not Valid')
+
+
 @api_view(['GET', 'POST', 'DELETE'])
 def users(request, pk=None):
     if request.method == 'GET' and pk is None:
@@ -27,14 +53,6 @@ def users(request, pk=None):
         serializer = UserSerializer(user, many=False)
         return Response(serializer.data)
 
-    if request.method == 'POST' and pk is None:
-        serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        else:
-            return Response('Something went wrong!')
-
     if request.method == 'POST' and pk:
         user = Users.objects.get(user_id=pk)
         serializer = UserSerializer(instance=user, data=request.data)
@@ -44,10 +62,14 @@ def users(request, pk=None):
         else:
             return Response('Not Valid')
 
-    if request.method == 'DELETE':
+    if request.method == 'DELETE' and pk:
         user = Users.objects.get(user_id=pk)
+        auth_username = user.username
+        auth_email = user.email
         user.delete()
-        return Response('Not Valid')
+        User.objects.filter(username=auth_username, email=auth_email).delete()
+
+        return Response('User Deleted')
 
 
 # Districts
