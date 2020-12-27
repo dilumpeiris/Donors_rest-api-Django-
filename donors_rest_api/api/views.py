@@ -42,6 +42,8 @@ def userCreate(request):
 
 
 @api_view(['GET', 'POST', 'DELETE'])
+@permission_classes((IsAuthenticated,))
+@authentication_classes((SessionAuthentication, BasicAuthentication,))
 def users(request, pk=None):
     if request.method == 'GET' and pk is None:
         users = Users.objects.all()
@@ -55,10 +57,31 @@ def users(request, pk=None):
 
     if request.method == 'POST' and pk:
         user = Users.objects.get(user_id=pk)
+        auth_username = user.username
+        auth_email = user.email
+
         serializer = UserSerializer(instance=user, data=request.data)
+
         if serializer.is_valid():
             serializer.save()
+
+            username = serializer.data['username']
+            email = serializer.data['email']
+            password = serializer.data['password']
+
+            auth_user = User.objects.get(username=auth_username, email=auth_email)
+
+            if username:
+                auth_user.username = username
+            if email:
+                auth_user.email = email
+            if password:
+                auth_user.password = password
+                
+            auth_user.save()
+
             return Response(serializer.data)
+
         else:
             return Response('Not Valid')
 
