@@ -77,7 +77,7 @@ def users(request, pk=None):
                 auth_user.email = email
             if password:
                 auth_user.password = password
-                
+
             auth_user.save()
 
             return Response(serializer.data)
