@@ -52,8 +52,8 @@ urlpatterns = [
     path('subscription_modes/', views.subscriptionMode, name='Subscription-Modes'),
     path('subscription_modes/<int:pk>', views.subscriptionMode, name='Subscription-Modes'),
 
-    path('user_event_subscription/', views.userEventSubscription, name='User-Event-Subscription'),
-    path('user_event_subscription/<int:pk>', views.userEventSubscription, name='User-Event-Subscription'),
+    path('user_event_subscriptions/', views.userEventSubscription, name='User-Event-Subscription'),
+    path('user_event_subscriptions/<int:pk>', views.userEventSubscription, name='User-Event-Subscription'),
 
     path('venues/', views.venues, name='Venues'),
     path('venues/<int:pk>', views.venues, name='Venues'),
