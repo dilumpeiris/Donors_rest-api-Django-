@@ -172,7 +172,162 @@ Donors_rest_api-Django
 
 </table>
 
+## Users
+```JSON
+{
+    "username": "username",
+    "password": "password",
+    "email": "email",
+    "display_name": "display_name",
+    "create_time": "create_time",
+    "city": "city",
+    "blood_type": "blood_type",
+    "reputation": "reputation",
+    "remember_token": "remember_token",
+}
+```
+## Cities
+```JSON
+{
+    "city_name": "city_name",
+    "district": "district",
+}
+```
+## Districts
+```JSON
+{
+    "district_name": "district_name",
+}
+```
+## Blood Types
+```JSON
+{
+    "blood_type": "blood_type",
+}
+```
+## Blood Type Compatibility
+```JSON
+{
+    "donor_blood_type": "donor_blood_type",
+    "recv_blood_type": "recv_blood_type",
+    "is_compatible": "is_compatible",
+}
+```
 
+## Donation History
+```JSON
+{
+    "user": "user",
+    "donation": "donation",
+    "venue": "venue",
+    "donation_date": "donation_date",
+    "donation_timestamp": "donation_timestamp",
+    "verification_user": "verification_user",
+}
+```
 
+## Donation Modes
+```JSON
+{
+    "donation_mode": "donation_mode",
+    "donation_freq": "donation_freq",
+}
+```
+## Donation Regs
+```JSON
+{
+    "user": "user",
+    "donation": "donation",
+    "last_donation_date": "last_donation_date",
+}
+```
 
+## Donations
+```JSON
+{
+    "donation_type": "donation_type",
+}
+```
 
+## Donations Donation Modes
+```JSON
+{
+    "donation": "donation",
+    "donation_mode": "donation_mode",
+}
+```
+
+## EventType
+```JSON
+{
+    "event_type": "event_type",
+}
+```
+
+## Events
+```JSON
+{
+    "event_name": "event_name",
+    "event_type": "event_type",
+    "event_start_date": "event_start_date",
+    "event_end_date": "event_end_date",
+    "event_start_time": "event_start_time",
+    "event_end_time": "event_end_time",
+    "event_desc": "event_desc",
+    "city": "city",
+    "organization": "organization",
+}
+```
+
+## Organizations
+```JSON
+{
+    "organization_name": "organization_name",
+    "organization_desc": "organization_desc",
+}
+```
+
+## Priorities
+```JSON
+{
+    "priority_name": "priority_name",
+}
+```
+
+## Requests
+```JSON
+{
+    "request_title": "request_title",
+    "donation": "donation",
+    "blood_type": "blood_type",
+    "request_start_date": "request_start_date",
+    "request_end_date": "request_end_date",
+    "timestamp": "timestamp",
+    "priority_priority": "priority_priority",
+}
+```
+
+## Subscription Modes
+```JSON
+{
+    "subscription_mode": "subscription_mode",
+}
+```
+
+## User Event Subscriptions
+```JSON
+{
+    "user": "user",
+    "event_type": "event_type",
+    "subscription_mode": "subscription_mode",
+}
+```
+
+## Venues
+```JSON
+{
+    "venue_name": "venue_name",
+    "venue_address": "venue_address",
+    "venue_lat_lon": "venue_lat_lon",
+}
+```
