@@ -171,7 +171,10 @@ Donors_rest_api-Django
     </tr>
 
 </table>
-## Getting Authorization
+
+
+# Getting Authorization
+
 
 You should send a POST request to ``` /api/login/ ``` with the following body content.
 ```
@@ -191,7 +194,6 @@ And you can use it to access the rest of the API by including it in the headers 
 ex:-
 ```
 Authorization: 'Token {Your Auth Token}'
-
 ```
 
 
