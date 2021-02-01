@@ -171,7 +171,7 @@ Donors_rest_api-Django
     </tr>
 
 </table>
-##Getting Authorization
+## Getting Authorization
 
 You should send a POST request to ``` /api/login/ ``` with the following body content.
 ```
