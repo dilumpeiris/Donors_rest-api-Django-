@@ -171,6 +171,29 @@ Donors_rest_api-Django
     </tr>
 
 </table>
+##Getting Authorization
+
+You should send a POST request to ``` /api/login/ ``` with the following body content.
+```
+{
+    "username": [
+        "This field is required."
+    ],
+    "password": [
+        "This field is required."
+    ]
+}
+```
+
+this will return an ```Auth Token```
+And you can use it to access the rest of the API by including it in the headers of the request you send.
+
+ex:-
+```
+Authorization: 'Token {Your Auth Token}'
+
+```
+
 
 # JSON POST Queries
 
